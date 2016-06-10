@@ -9,8 +9,16 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source ${DIR}/utils.sh
 
 IMAGE="resinplayground/logspout"
-ARCH=$(listImages | jq '.[0].Labels."io.resin.architecture"' | tr -d '"')
 LOGGING_SERVER=${LOGGING_SERVER:-"syslog+tcp://logstash.resin.io:5000"}
+
+ARCH=${ARCH:-$(listArchLabeledImages | jq '.[0].Labels."io.resin.architecture"' | tr -d '"')}
+if [ -z "$ARCH" ] || [ "$ARCH" = "null" ]; then
+	echo "Could not detect device architecture."
+	echo "Please run this script with ARCH environment variable set to match the architecture of this device."
+	exit 1
+fi
+
+echo "Detected architecture: ${ARCH}"
 
 function showHelp {
 	echo "This script is used to create and start a logspout container on the device"

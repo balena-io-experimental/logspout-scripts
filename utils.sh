@@ -53,6 +53,7 @@ function __curl {
 
 	curl \
 		${extraCurlArgs} \
+		--globoff \
 		--silent \
 		-X "$method" \
 		-H "Content-Type: application/json" \
@@ -72,6 +73,9 @@ function listImages {
 	curlGetResponse "GET" "v1/images"
 }
 
+function listArchLabeledImages {
+	curlGetResponse "GET" "v1/images?filters={\"label\":[\"io.resin.architecture\"]}"
+}
 
 function listContainers {
 	curlGetResponse "GET" "v1/containers?all=1"
