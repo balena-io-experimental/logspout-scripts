@@ -1,5 +1,7 @@
 # logspout-scripts
 
+**Deprecation Notice:** This project was depending on the container sideloading supervisor API [that has recently been removed.](https://github.com/resin-io-playground/logspout-scripts)
+
 Scripts for setting up logspout loggin containers in resin.io devices
 
 ## Installation
